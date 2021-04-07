@@ -1,0 +1,5 @@
+name: 'ScrapeBern'
+description: 'Scrape information for corona vaccination in canton bern'
+runs:
+  using: 'node12'
+  main: 'ScrapeBern.js'
