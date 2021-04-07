@@ -1,0 +1,23 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Scrape
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: ScrapeBern
+        uses: ./actions/ScrapeBern/ # Uses an action in the root directory
+        id: scrapeBern
