@@ -11,9 +11,22 @@ jobs:
   tweet:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/github-script@v3
+        id: get-tweet-text
+        with:
+          result-encoding: string
+          script: |
+            const { promises: fs } = require('fs')
+            var info = JSON.parse(await fs.readFile('./bern.json', 'utf8'))
+            var msg = `Kanton Bern\nTermine:\n${info.Termine}\nImpfgruppen:\n${info.Impfgruppen}\n(ohne Gewähr, Source: https://www.gef.be.ch/gef/de/index/Corona/Corona/corona_impfung_bern.html)`
+            console.log(msg)
+            return msg
+
       - uses: ethomson/send-tweet-action@v1
         with:
-          status: "Test tweet!"
+          status: ${{steps.get-tweet-text.outputs.result}}
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
           access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
