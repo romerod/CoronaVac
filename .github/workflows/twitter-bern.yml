@@ -2,7 +2,8 @@ name: send tweets
 
 on:
   push:
-    - paths: 'bern.json'
+    paths: 
+    - 'bern.json'
 
   workflow_dispatch:
 
